@@ -29,6 +29,7 @@ class OnSellViewModel : ViewModel() {
         viewModelScope.launch {
             val onSellList = onSellRepository.getOnSellList(page)
             println("result size: ${onSellList.tbk_dg_optimus_material_response.result_list.map_data.size} ;")
+
         }
     }
 
