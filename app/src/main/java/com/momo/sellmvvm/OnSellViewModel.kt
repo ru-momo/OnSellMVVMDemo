@@ -1,10 +1,14 @@
 package com.momo.sellmvvm
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.momo.sellmvvm.domain.MapData
 import kotlinx.coroutines.launch
 
 class OnSellViewModel : ViewModel() {
+
+    val contentList = MutableLiveData<List<MapData>>()
 
     private val onSellRepository by lazy {
         OnSellRepository()
@@ -29,7 +33,7 @@ class OnSellViewModel : ViewModel() {
         viewModelScope.launch {
             val onSellList = onSellRepository.getOnSellList(page)
             println("result size: ${onSellList.tbk_dg_optimus_material_response.result_list.map_data.size} ;")
-
+            contentList.postValue(onSellList.tbk_dg_optimus_material_response.result_list.map_data)
         }
     }
 
