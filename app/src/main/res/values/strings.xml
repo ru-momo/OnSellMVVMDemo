@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SellMVVM</string>
+    <string name="discounts_price_text">卷后价:</string>
 </resources>

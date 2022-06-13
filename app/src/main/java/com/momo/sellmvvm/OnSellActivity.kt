@@ -1,12 +1,15 @@
 package com.momo.sellmvvm
 
+import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.momo.sellmvvm.adapter.OnSellListAdapter
+import com.momo.sellmvvm.utils.SizeUtils
 
 class OnSellActivity : AppCompatActivity() {
 
@@ -32,6 +35,24 @@ class OnSellActivity : AppCompatActivity() {
         findViewById<RecyclerView>(R.id.contentListRv).run {
             adapter = mAdapter
             layoutManager = LinearLayoutManager(this@OnSellActivity)
+            addItemDecoration(
+                object : RecyclerView.ItemDecoration() {
+                    override fun getItemOffsets(
+                        outRect: Rect,
+                        view: View,
+                        parent: RecyclerView,
+                        state: RecyclerView.State
+                    ) {
+                        outRect.apply {
+                            val padding = SizeUtils.dip2px(this@OnSellActivity, 4.0f)
+                            top = padding
+                            left = padding
+                            bottom = padding
+                            right = padding
+                        }
+                    }
+                }
+            )
         }
     }
 

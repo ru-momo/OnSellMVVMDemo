@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.momo.sellmvvm.R
 import com.momo.sellmvvm.domain.MapData
 
@@ -27,6 +28,8 @@ class OnSellListAdapter : RecyclerView.Adapter<OnSellListAdapter.InnerHolder>() 
         holder.itemView.apply {
             with(mContentList[position]){
                 findViewById<TextView>(R.id.itemTitleTv).text = title
+                findViewById<TextView>(R.id.off_price_tv).text = String.format("￥%.2f", zk_final_price.toFloat() - coupon_amount)
+                Glide.with(context).load("https:$pict_url").into(findViewById(R.id.item_cover_iv))
             }
         }
     }
