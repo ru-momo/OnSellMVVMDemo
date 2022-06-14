@@ -9,9 +9,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.momo.sellmvvm.adapter.OnSellListAdapter
+import com.momo.sellmvvm.base.LoadState
+import com.momo.sellmvvm.databinding.ActivityMainBinding
 import com.momo.sellmvvm.utils.SizeUtils
 
 class OnSellActivity : AppCompatActivity() {
+
+    private val rootBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
 
     private val viewModel by lazy {
         ViewModelProvider(this).get(OnSellViewModel::class.java)
@@ -23,7 +29,7 @@ class OnSellActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(rootBinding.root)
         initView()
         initObserver()
     }
@@ -32,7 +38,7 @@ class OnSellActivity : AppCompatActivity() {
      * 初始化控件
      */
     private fun initView() {
-        findViewById<RecyclerView>(R.id.contentListRv).run {
+        rootBinding.contentListRv.run {
             adapter = mAdapter
             layoutManager = LinearLayoutManager(this@OnSellActivity)
             addItemDecoration(
@@ -61,12 +67,34 @@ class OnSellActivity : AppCompatActivity() {
      */
     private fun initObserver() {
         viewModel.apply {
-            contentList.observe(this@OnSellActivity, Observer {
+            contentList.observe(this@OnSellActivity) {
                 //内容更新
                 //更新适配器
                 mAdapter.setData(it)
-            })
+            }
+            loadState.observe(this@OnSellActivity) {
+                hideAllView()
+                when (it) {
+                    LoadState.SUCCESS -> rootBinding.contentListRv.visibility = View.VISIBLE
+                    LoadState.EMPTY -> rootBinding.emptyView.root.visibility = View.VISIBLE
+                    LoadState.LOADING -> rootBinding.loadingView.root.visibility = View.VISIBLE
+                    LoadState.ERROR -> rootBinding.errorView.root.visibility = View.VISIBLE
+                }
+            }
         }.loadContent()
     }
 
+    /**
+     * 隐藏所有view
+     */
+    private fun hideAllView() {
+        for (i in 0 until rootBinding.root.childCount) {
+            rootBinding.root.getChildAt(i).visibility = View.GONE
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 }

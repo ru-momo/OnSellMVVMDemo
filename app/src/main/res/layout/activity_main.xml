@@ -7,7 +7,7 @@
     tools:context=".OnSellActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/contentListRv"
+        android:id="@+id/content_list_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#dfdfdf"
@@ -15,6 +15,29 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible"/>
+
+    <include
+        android:id="@+id/empty_view"
+        layout="@layout/activity_on_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <include
+        android:id="@+id/loading_view"
+        layout="@layout/activity_on_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <include
+        android:id="@+id/error_view"
+        layout="@layout/activity_on_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

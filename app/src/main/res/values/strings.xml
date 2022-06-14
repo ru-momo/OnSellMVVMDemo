@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">SellMVVM</string>
     <string name="discounts_price_text">卷后价:</string>
+    <string name="text_loading">正在玩命加载中...</string>
+    <string name="text_loading_error">点击重新加载</string>
+    <string name="text_loading_empty">内容为空...</string>
 </resources>

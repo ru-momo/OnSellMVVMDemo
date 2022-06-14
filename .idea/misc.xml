@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android/camera_demo2/SellMVVM/app/src/main/res/layout/activity_main.xml" value="0.3023255813953488" />
+        <entry key="..\:/Android/camera_demo2/SellMVVM/app/src/main/res/layout/activity_on_empty.xml" value="0.2484375" />
+        <entry key="..\:/Android/camera_demo2/SellMVVM/app/src/main/res/layout/activity_on_error.xml" value="0.2484375" />
+        <entry key="..\:/Android/camera_demo2/SellMVVM/app/src/main/res/layout/activity_on_loading.xml" value="0.2484375" />
         <entry key="..\:/Android/camera_demo2/SellMVVM/app/src/main/res/layout/item_on_sell.xml" value="0.6811377245508982" />
       </map>
     </option>
