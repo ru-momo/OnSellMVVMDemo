@@ -6,38 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".OnSellActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/content_list_rv"
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/content_refresh_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#dfdfdf"
-        android:overScrollMode="never"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="visible"/>
+        android:visibility="visible">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/content_list_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never" />
+
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
 
     <include
         android:id="@+id/empty_view"
         layout="@layout/activity_on_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <include
         android:id="@+id/loading_view"
         layout="@layout/activity_on_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <include
         android:id="@+id/error_view"
         layout="@layout/activity_on_error"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,7 @@ data class TbkDgOptimusMaterialResponse(
 )
 
 data class ResultList(
-    val map_data: List<MapData>
+    val map_data: MutableList<MapData>
 )
 
 data class MapData(

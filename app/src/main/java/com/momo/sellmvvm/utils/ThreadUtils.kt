@@ -5,6 +5,7 @@ import android.os.HandlerThread
 
 object ThreadUtils {
 
+    val mainHandler : Handler = Handler()
     val taskHandler : Handler
 
     init {

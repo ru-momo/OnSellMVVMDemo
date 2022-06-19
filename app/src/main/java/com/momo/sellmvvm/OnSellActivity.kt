@@ -4,10 +4,13 @@ import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
 import com.momo.sellmvvm.adapter.OnSellListAdapter
 import com.momo.sellmvvm.base.LoadState
 import com.momo.sellmvvm.databinding.ActivityMainBinding
@@ -60,6 +63,21 @@ class OnSellActivity : AppCompatActivity() {
                 }
             )
         }
+        rootBinding.errorView.networkErrorTips.setOnClickListener {
+            // 重新加载数据
+            viewModel.loadContent()
+        }
+        rootBinding.contentRefreshView.run {
+            setEnableRefresh(false)
+            setEnableOverScroll(true)
+            setEnableLoadmore(true)
+            setOnRefreshListener(object : RefreshListenerAdapter() {
+                override fun onLoadMore(refreshLayout: TwinklingRefreshLayout?) {
+                    // 加载更多页面
+                    viewModel.loadMore()
+                }
+            })
+        }
     }
 
     /**
@@ -73,12 +91,28 @@ class OnSellActivity : AppCompatActivity() {
                 mAdapter.setData(it)
             }
             loadState.observe(this@OnSellActivity) {
-                hideAllView()
                 when (it) {
-                    LoadState.SUCCESS -> rootBinding.contentListRv.visibility = View.VISIBLE
+                    LoadState.SUCCESS,
+                    LoadState.EMPTY,
+                    LoadState.LOADING,
+                    LoadState.ERROR -> hideAllView()
+                }
+                when (it) {
+                    LoadState.SUCCESS -> rootBinding.contentRefreshView.visibility = View.VISIBLE
                     LoadState.EMPTY -> rootBinding.emptyView.root.visibility = View.VISIBLE
                     LoadState.LOADING -> rootBinding.loadingView.root.visibility = View.VISIBLE
                     LoadState.ERROR -> rootBinding.errorView.root.visibility = View.VISIBLE
+                    LoadState.LOADING_MORE_LOADING -> {
+                    }
+                    LoadState.LOADING_MORE_SUCCESS -> rootBinding.contentRefreshView.finishLoadmore()
+                    LoadState.LOADING_MORE_EMPTY -> {
+                        Toast.makeText(this@OnSellActivity, "已经没有更多内容了", Toast.LENGTH_SHORT).show()
+                        rootBinding.contentRefreshView.finishLoadmore()
+                    }
+                    LoadState.LOADING_MORE_ERROR -> {
+                        Toast.makeText(this@OnSellActivity, "网络不佳，稍后再试", Toast.LENGTH_SHORT).show()
+                        rootBinding.contentRefreshView.finishLoadmore()
+                    }
                 }
             }
         }.loadContent()

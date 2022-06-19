@@ -1,5 +1,6 @@
 package com.momo.sellmvvm.domain
 
+import android.util.Log
 import com.momo.sellmvvm.api.ApiException
 
 data class ResultData<T>(
